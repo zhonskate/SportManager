@@ -26,7 +26,7 @@ public class application extends Application {
         stage.setTitle("Overview");
         stage.setScene(scene);
         stage.setMinHeight(370.0);
-        stage.setMinWidth(950.0);
+        stage.setMinWidth(1075.0);
         stage.show();
     }
 
