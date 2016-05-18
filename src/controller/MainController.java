@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -26,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.media.Track;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -123,11 +125,27 @@ public class MainController implements Initializable {
     }
 
     @FXML
+   
     private void onChart(ActionEvent event) {
+        try{
+            FXMLLoader charger = new FXMLLoader(getClass().getResource("/view/charts.fxml"));
+                Parent root = charger.load();   
+                Scene scene = new Scene(root);
+            
+                Stage chz = new Stage();
+                chz.setTitle("Charts");
+                chz.setScene(scene);
+                chz.setResizable(true);
+                chz.setMinHeight(600.0);
+                chz.setMinWidth(750.0);
+                chz.show();
+        }
+        catch (IOException e){}
     }
 
     @FXML
     private void onExit(ActionEvent event) {
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).close(); 
     }
     
      private void showTrackInfo(TrackData trackData) {
