@@ -74,6 +74,8 @@ public class MainController implements Initializable {
     private TrackData trackData;
     @FXML
     private Button loadButt;
+    @FXML
+    private Button chartButt;
 
     /**
      * Initializes the controller class.
@@ -93,7 +95,8 @@ public class MainController implements Initializable {
         AccSlopeUpLbl.setText("0 m");
         AccSlopeDownLbl.setText("0 m");
         MaxPedalRateLbl.setText("0 ppm");
-        AvgPedalRateLbl.setText("0 ppm");          
+        AvgPedalRateLbl.setText("0 ppm");   
+        chartButt.setDisable(true);
     }    
 
     @FXML
@@ -111,6 +114,7 @@ public class MainController implements Initializable {
         if (gpx != null) {
             trackData = new TrackData(new jgpx.model.gpx.Track(gpx.getTrk().get(0)));
             showTrackInfo(trackData);
+            chartButt.setDisable(false);
             //label.setText("GPX successfully loaded");
         } else {
             //label.setText("Error loading GPX from " + file.getName());
@@ -147,6 +151,7 @@ public class MainController implements Initializable {
         AvgPedalRateLbl.setText(String.format("%d ppm", trackData.getAverageCadence()));      
           
     }
+     
    
     
     
