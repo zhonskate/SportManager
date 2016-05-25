@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -109,15 +111,15 @@ public class MainController implements Initializable {
         MaxPedalRateLbl.setText("0 ppm");
         AvgPedalRateLbl.setText("0 ppm");
         chartButt.setDisable(true);
-
     }
 
     @FXML
     private void onLoad(ActionEvent event) throws JAXBException {
-
+        chartButt.setDisable(true);
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(loadButt.getScene().getWindow());
         if (file == null) {
+            chartButt.setDisable(false);
             return;
         }
 
@@ -260,5 +262,7 @@ public class MainController implements Initializable {
         AvgPedalRateLbl.setText(String.format("%d ppm", trackData.getAverageCadence()));
 
     }
+    
+    
 
 }

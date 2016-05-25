@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
@@ -48,6 +49,8 @@ public class ChartsController implements Initializable {
     public XYChart.Series<Number, Number> seriesCt;
     public XYChart.Series<Number, Number> seriesDt;
     private TrackData trackData;
+    ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(); 
+    ObservableList<Chunk> chunks;
     /**
      * Initializes the controller class.
      */
@@ -58,13 +61,32 @@ public class ChartsController implements Initializable {
 
     @FXML
     private void onSubmit(ActionEvent event) {
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        int maxhr;
+        int maxhr = -1;
         try{maxhr = Integer.parseInt( HRField.getText());}
-        catch(NumberFormatException e){ maxhr = 0;}
+        catch(NumberFormatException e){HRField.clear();HRField.setPromptText("Imput a number!");}
         
-        ObservableList<Chunk> chunks = trackData.getChunks();
+        if(maxhr>=0) setPie(maxhr);
+    }
 
+    void setSeries(TrackData trackData,XYChart.Series<Number, Number> seriesA, XYChart.Series<Number, Number> seriesB, XYChart.Series<Number, Number> seriesC, XYChart.Series<Number, Number> seriesD) {
+        this.trackData = trackData;
+        this.seriesA = seriesA;
+        this.seriesB = seriesB;
+        this.seriesC = seriesC;
+        this.seriesD = seriesD;
+        chunks = trackData.getChunks();
+
+        HeightChart.getData().add(seriesA);
+        SpeedChart.getData().add(seriesB);
+        HeartRateChart.getData().add(seriesC);
+        PedalingChart.getData().add(seriesD);
+
+        System.out.print("8--D");
+
+    }
+    
+    private void setPie(int maxhr){
+        pieChartData.remove(0,pieChartData.size());
         int z1 = 0;
         int z2 = 0;
         int z3 = 0;
@@ -84,34 +106,27 @@ public class ChartsController implements Initializable {
             } else {
                 z5++;
             }
-        
-        
-        
     }
         int totals = z1+z2+z3+z4+z5;
-        
-        pieChartData.add(new PieChart.Data("Recovery zone " + z1*100/totals + "%", z1));
-        pieChartData.add(new PieChart.Data("Endurance zone "+ z2*100/totals + "%", z2));
-        pieChartData.add(new PieChart.Data("Tempo zone "+ z3*100/totals + "%", z3));
-        pieChartData.add(new PieChart.Data("Threshold zhone "+ z4*100/totals + "%", z4));
-        pieChartData.add(new PieChart.Data("Anaerobic zone "+ z5*100/totals + "%", z5));
+        int z1d = (int) Math.round((double) z1*100/totals);
+        int z2d = (int) Math.round((double) z2*100/totals);
+        int z3d = (int) Math.round((double) z3*100/totals);
+        int z4d = (int) Math.round((double) z4*100/totals);
+        int z5d = (int) Math.round((double) z5*100/totals);
+        pieChartData.add(new PieChart.Data("Recovery zone " + z1d + "%", z1));
+        pieChartData.add(new PieChart.Data("Endurance zone "+ z2d + "%", z2));
+        pieChartData.add(new PieChart.Data("Tempo zone "+ z3d + "%", z3));
+        pieChartData.add(new PieChart.Data("Threshold zhone "+ z4d + "%", z4));
+        pieChartData.add(new PieChart.Data("Anaerobic zone "+ z5d + "%", z5));
 
         pieChart.setData(pieChartData);
     }
 
-    void setSeries(TrackData trackData,XYChart.Series<Number, Number> seriesA, XYChart.Series<Number, Number> seriesB, XYChart.Series<Number, Number> seriesC, XYChart.Series<Number, Number> seriesD) {
-        this.trackData = trackData;
-        this.seriesA = seriesA;
-        this.seriesB = seriesB;
-        this.seriesC = seriesC;
-        this.seriesD = seriesD;
-
-        HeightChart.getData().add(seriesA);
-        SpeedChart.getData().add(seriesB);
-        HeartRateChart.getData().add(seriesC);
-        PedalingChart.getData().add(seriesD);
-
-        System.out.print("8--D");
-
+    @FXML
+    private void onHR(Event event) {
+        if(pieChartData.isEmpty())setPie(0);
     }
+    
+    
+    
 }
