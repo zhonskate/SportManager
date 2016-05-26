@@ -119,7 +119,7 @@ public class MainController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(loadButt.getScene().getWindow());
         if (file == null) {
-            chartButt.setDisable(false);
+            if(trackData!=null)chartButt.setDisable(false);
             return;
         }
 
