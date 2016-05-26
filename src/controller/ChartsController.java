@@ -44,10 +44,7 @@ public class ChartsController implements Initializable {
     public XYChart.Series<Number, Number> seriesB;
     public XYChart.Series<Number, Number> seriesC;
     public XYChart.Series<Number, Number> seriesD;
-    public XYChart.Series<Number, Number> seriesAt;
-    public XYChart.Series<Number, Number> seriesBt;
-    public XYChart.Series<Number, Number> seriesCt;
-    public XYChart.Series<Number, Number> seriesDt;
+    
     private TrackData trackData;
     ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(); 
     ObservableList<Chunk> chunks;

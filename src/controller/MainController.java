@@ -86,10 +86,7 @@ public class MainController implements Initializable {
     public XYChart.Series<Number, Number> seriesB;
     public XYChart.Series<Number, Number> seriesC;
     public XYChart.Series<Number, Number> seriesD;
-    public XYChart.Series<Number, Number> seriesAt;
-    public XYChart.Series<Number, Number> seriesBt;
-    public XYChart.Series<Number, Number> seriesCt;
-    public XYChart.Series<Number, Number> seriesDt;
+    
 
     /**
      * Initializes the controller class.
@@ -152,10 +149,7 @@ public class MainController implements Initializable {
                 seriesB = new XYChart.Series();
                 seriesC = new XYChart.Series();
                 seriesD = new XYChart.Series();
-                seriesAt = new XYChart.Series();
-                seriesBt = new XYChart.Series();
-                seriesCt = new XYChart.Series();
-                seriesDt = new XYChart.Series();
+                
                 double acumulated = 0;
                 double time = 0;
                 System.out.println(chunks.size());
@@ -173,15 +167,7 @@ public class MainController implements Initializable {
                         //if(i%15==0)
                         seriesD.getData().add(new XYChart.Data<>(xd, chunks.get(i).getAvgCadence()));
                     }
-                    if (true) {
-
-                        String timexd = String.format("%.0fm", time / 60000);
-                        //   System.out.println(timexd);
-                        seriesAt.getData().add(new XYChart.Data<>(time, chunks.get(i).getAvgHeight()));
-                        seriesBt.getData().add(new XYChart.Data<>(time, chunks.get(i).getSpeed()));
-                        seriesCt.getData().add(new XYChart.Data<>(time, chunks.get(i).getAvgHeartRate()));
-                        seriesDt.getData().add(new XYChart.Data<>(time, chunks.get(i).getAvgCadence()));
-                    }
+                    
 
                     acumulated += chunks.get(i).getDistance();
 
